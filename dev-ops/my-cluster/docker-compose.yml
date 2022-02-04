@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  head-node:
+    image: 'ray-dev'
+    build: .
+    ports:
+      - "10001:10001" # Cluster
+      - "8265:8265"   # Dashboard
+    command: /home/ray/run.sh head
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 1G
+
+  # To scale up or down your Ray nodes you can use the following command.
+  # docker-compose scale worker-node=1
+  worker-node:
+    image: 'ray-dev'
+    build: .
+    command: /home/ray/run.sh worker
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: 1
+          memory: 512M

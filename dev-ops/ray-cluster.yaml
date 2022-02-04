@@ -1,0 +1,40 @@
+cluster_name: dev-cluster
+
+upscaling_speed: 1.0
+
+docker:
+  image: "rayproject/ray:latest-py38-cpu"
+  container_name: "ray_container"
+
+idle_timeout_minutes: 5
+
+# CLOUD PROVIDER
+provider:
+  type: aws
+  region: us-east-1
+  cache_stopped_nodes: False
+
+# RAY NODES
+available_node_types:
+
+  ray.head.default:
+    node_config:
+      InstanceType: m5.large
+      ImageId: latest_dlami # Deep Learning AMI (Ubuntu) Version 30
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 100
+
+  ray.worker.default:
+    min_workers: 0
+    max_workers: 2
+    node_config:
+      InstanceType: m5.xlarge
+      ImageId: latest_dlami # Deep Learning AMI (Ubuntu) Version 30
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 100
+      InstanceMarketOptions:
+        MarketType: spot

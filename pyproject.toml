@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "ray-app"
+version = "0.0.1-alpha"
+description = "PoC: Ray Application."
+authors = ["anthony.caliani"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+ray = { extras = ["default"], version = "^1.9.2" }
+fire = "^0.4.0"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.6.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
